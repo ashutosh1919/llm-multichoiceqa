@@ -39,7 +39,15 @@ def train(params):
     )
     
     trainer.train()
+    return trainer
 
+
+def train_from_notebook(params_file_path):
+    with open(params_file_path, 'r') as file:
+        params = yaml.safe_load(file)
+    params = Dict(params)
+    print('Started training...')
+    return train(params) 
 
 def main():
     parser = argparse.ArgumentParser(description='Training MultipleChoise QA dataset.')

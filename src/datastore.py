@@ -15,7 +15,8 @@ class MultiChoiceDataStore:
                  id_col='id',
                  question_col='prompt',
                  answer_col='answer',
-                 num_options=5):
+                 num_options=5,
+                 tokenizer_model="bert-base-cased"):
         if not os.path.exists(csv_file):
             raise ValueError('Unrecognized csv_file')
         

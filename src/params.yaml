@@ -17,3 +17,4 @@ dataset:
   question_col: 'prompt'
   answer_col: 'answer'
   num_options: 5
+  tokenizer_model: 'bert-base-cased'

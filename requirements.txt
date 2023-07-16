@@ -1,0 +1,6 @@
+transformers
+evaluate
+pandas
+datasets
+pyyaml
+addict

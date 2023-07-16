@@ -1,0 +1,19 @@
+model:
+  automodel_type: 'bert-base-cased'
+  model_dir: 'finetuned_bert'
+  evaluation_strategy: 'epoch'
+  save_strategy: 'epoch'
+  load_best_model_at_end: true
+  learning_rate: 0.00005
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  epochs: 5
+  weight_decay: 0.01
+
+dataset:
+  csv_file: 'data/train.csv'
+  dataset_type: 'train'
+  id_col: 'id'
+  question_col: 'prompt'
+  answer_col: 'answer'
+  num_options: 5

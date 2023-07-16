@@ -31,7 +31,7 @@ class MultiChoiceDataStore:
         if dataset_type == 'train' and answer_col is None:
             raise ValueError('answer_col cannot be None for dataset_type: train')
         self.answer_col = answer_col
-        self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
         self.option_to_index = {opt: idx for idx, opt in enumerate(self.options)}
         self.index_to_option = {idx: opt for idx, opt in enumerate(self.options)}
         self.processed_ds = self.ds.map(self.preprocess,

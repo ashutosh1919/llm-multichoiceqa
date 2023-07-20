@@ -4,3 +4,4 @@ pandas
 datasets
 pyyaml
 addict
+tqdm

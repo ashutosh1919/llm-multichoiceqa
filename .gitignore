@@ -1,3 +1,8 @@
+# large files
+data/openbook_qa/processed/
+wandb/
+finetuned_deberta/
+
 # Git password
 env_token.txt
 

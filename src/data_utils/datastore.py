@@ -21,15 +21,12 @@ class MultiChoiceDataStore:
             raise ValueError('Unrecognized csv_file')
         
         self.ds = Dataset.from_pandas(pd.read_csv(csv_file))
-        assert dataset_type in ['train', 'test']
+        assert dataset_type in ['train', 'val', 'test']
         self.dataset_type = dataset_type
         self.id_col = id_col
         self.question_col = question_col
         self.num_options = num_options
         self.options = [chr(c) for c in list(range(ord('A'), ord('A') + num_options))]
-        
-        if dataset_type == 'train' and answer_col is None:
-            raise ValueError('answer_col cannot be None for dataset_type: train')
         self.answer_col = answer_col
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
         self.option_to_index = {opt: idx for idx, opt in enumerate(self.options)}

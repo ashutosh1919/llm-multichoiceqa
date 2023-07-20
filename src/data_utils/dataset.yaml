@@ -1,0 +1,11 @@
+train:
+  raw_file_path: 'data/openbook_qa/train.jsonl'
+  out_file_path: 'data/openbook_qa/processed/train.csv'
+
+val:
+  raw_file_path: 'data/openbook_qa/dev.jsonl'
+  out_file_path: 'data/openbook_qa/processed/val.csv'
+
+test:
+  raw_file_path: 'data/openbook_qa/test.jsonl'
+  out_file_path: 'data/openbook_qa/processed/test.csv'

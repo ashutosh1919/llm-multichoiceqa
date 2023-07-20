@@ -1,0 +1,29 @@
+model:
+  automodel_type: 'microsoft/deberta-v3-large'
+  training_args:
+    output_dir: 'finetuned_deberta'
+    evaluation_strategy: 'epoch'
+    save_strategy: 'epoch'
+    load_best_model_at_end: true
+    learning_rate: 0.00003
+    per_device_train_batch_size: 4
+    per_device_eval_batch_size: 4
+    num_train_epochs: 2
+    weight_decay: 0.01
+
+dataset:
+  common:
+    id_col: 'id'
+    question_col: 'prompt'
+    answer_col: 'answer'
+    num_options: 4
+    tokenizer_model: 'microsoft/deberta-v3-large'
+  train:
+    csv_file: 'data/openbook_qa/processed/train.csv'
+    dataset_type: 'train'
+  val:
+    csv_file: 'data/openbook_qa/processed/val.csv'
+    dataset_type: 'val'
+  test:
+    csv_file: 'data/openbook_qa/processed/test.csv'
+    dataset_type: 'test'

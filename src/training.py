@@ -13,12 +13,20 @@ class MultiChoiceTrainer:
         self.params = params
         self.evaluator = Evaluator()
         
+        if os.path.exists(params.model.prev_saved_path):
+            model_path = params.model.prev_saved_path
+        else:
+            model_path = params.model.automodel_type
+        
+        params.dataset.common.tokenizer_model = model_path
+        
         self.data_maker = DataMaker(params.dataset)
         self.data_maker.prepare_datasets()
         self.get_datasets()
         
         self.model = AutoModelForMultipleChoice.from_pretrained(
-            params.model.automodel_type)
+            model_path)
+
         self.training_args = TrainingArguments(**params.model.training_args)
         self.trainer = Trainer(
             model=self.model,
@@ -39,9 +47,19 @@ class MultiChoiceTrainer:
         self.trainer.train()
     
     def save_model(self):
-        self.trainer.save_model(
-            os.path.join(self.params.model.training_args.output_dir,
-                         'best_model'))
+        self.trainer.save_model(self.params.model.new_saved_path)
+    
+    def _evaluate_single(self, dataset_type, dataset):
+        acc = self.evaluator.evaluate(
+            self.trainer.predict(dataset).predictions,
+            dataset[:]['label']
+        )
+        print('{} acc: {}'.format(dataset_type, acc))
+    
+    def evaluate(self):
+        self._evaluate_single('train', self.train_ds)
+        self._evaluate_single('val', self.val_ds)
+        self._evaluate_single('test', self.test_ds)
 
 
 def main():
@@ -55,6 +73,7 @@ def main():
     trainer = MultiChoiceTrainer(params)
     trainer.train()
     trainer.save_model()
+    trainer.evaluate()
 
 
 if __name__ == '__main__':

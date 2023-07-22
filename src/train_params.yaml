@@ -1,14 +1,17 @@
 model:
   automodel_type: 'microsoft/deberta-v3-large'
+  prev_saved_path: 'finetuned_deberta/best_model2/'
+  new_saved_path: 'finetuned_deberta/best_model/'
   training_args:
     output_dir: 'finetuned_deberta'
     evaluation_strategy: 'epoch'
     save_strategy: 'epoch'
     load_best_model_at_end: true
-    learning_rate: 0.00003
-    per_device_train_batch_size: 4
-    per_device_eval_batch_size: 4
-    num_train_epochs: 2
+    # adam_epsilon: 0.000001
+    learning_rate: 0.0000009
+    per_device_train_batch_size: 16
+    per_device_eval_batch_size: 2
+    num_train_epochs: 1
     weight_decay: 0.01
 
 dataset:
@@ -16,14 +19,19 @@ dataset:
     id_col: 'id'
     question_col: 'prompt'
     answer_col: 'answer'
-    num_options: 4
-    tokenizer_model: 'microsoft/deberta-v3-large'
+    num_options: 5
+    # tokenizer_model: 'microsoft/deberta-v3-large'
   train:
-    csv_file: 'data/openbook_qa/processed/train.csv'
+    csv_file: 'data/kaggle/6000_train_examples.csv'
+    # csv_file: 'data/kaggle/train.csv'
+    # num_options: 5
     dataset_type: 'train'
   val:
-    csv_file: 'data/openbook_qa/processed/val.csv'
+    # csv_file: 'data/openbook_qa/processed/val.csv'
+    csv_file: 'data/kaggle/train.csv'
+    # num_options: 5
     dataset_type: 'val'
   test:
-    csv_file: 'data/openbook_qa/processed/test.csv'
+    csv_file: 'data/openbook_qa/processed/val.csv'
+    num_options: 4
     dataset_type: 'test'

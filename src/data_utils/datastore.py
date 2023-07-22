@@ -21,7 +21,7 @@ class MultiChoiceDataStore:
             raise ValueError('Unrecognized csv_file')
         
         self.ds = Dataset.from_pandas(pd.read_csv(csv_file))
-        assert dataset_type in ['train', 'val', 'test']
+        assert dataset_type in ['train', 'val', 'test', 'test_real']
         self.dataset_type = dataset_type
         self.id_col = id_col
         self.question_col = question_col
